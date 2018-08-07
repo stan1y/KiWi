@@ -86,7 +86,7 @@ void KW_RectLayoutHorizontally(KW_Rect * rects[], unsigned count, int padding, K
   }
 }
 
-void KW_RectFillParentVertically(const KW_Rect * parent, KW_Rect * rects[], unsigned weights[], unsigned count, int padding) {
+void KW_RectFillParentVertically(const KW_Rect * parent, KW_Rect * rects[], unsigned weights[], unsigned count, int padding, KW_RectHorizontalAlignment align) {
   KW_Rect * inner;
   unsigned i, weight, total = 0, base = 0;
   int current = 0;
@@ -99,6 +99,20 @@ void KW_RectFillParentVertically(const KW_Rect * parent, KW_Rect * rects[], unsi
     inner->y = current + padding;
     inner->h = base * weight;
     current = inner->y + inner->h;
+    switch (align) {
+      case KW_RECT_ALIGN_LEFT:
+        inner->x = parent->x;
+        break;
+      case KW_RECT_ALIGN_CENTER:
+        KW_RectHorizontallyCenterInParent(parent, inner);
+        //inner->x += parent->x;
+        break;
+      case KW_RECT_ALIGN_RIGHT:
+        inner->x = parent->w - inner->w;
+        break;
+      default:
+        break;
+    }
   }
 }
 

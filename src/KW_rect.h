@@ -114,8 +114,10 @@ extern DECLSPEC void KW_RectLayoutHorizontally(KW_Rect * rects[], unsigned count
  *               The higher the weight, the more space the rectangle will occupy.
  * \param count The amount of rectangles in the array
  * \param padding The amount of padding between the rectangles
+ * \param align How to align the rectangles
  */
-extern DECLSPEC void KW_RectFillParentVertically(const KW_Rect * outer, KW_Rect * rects[], unsigned weights[], unsigned count, int padding);
+extern DECLSPEC void KW_RectFillParentVertically(const KW_Rect * outer, KW_Rect * rects[], unsigned weights[], unsigned count, 
+                                              int padding, KW_RectHorizontalAlignment align);
 
 /**
  * \brief Layout and resize rectangles horizontally, adjusting their width so they all fit inside the outer
@@ -126,6 +128,7 @@ extern DECLSPEC void KW_RectFillParentVertically(const KW_Rect * outer, KW_Rect 
  *               The higher the weight, the more space the rectangle will occupy.
  * \param count The amount of rectangles in the array
  * \param padding The amount of padding between the rectangles
+ * \param align How to align the rectangles
  */
 extern DECLSPEC void KW_RectFillParentHorizontally(const KW_Rect * outer, KW_Rect * rects[], unsigned weights[], unsigned count,
                                              int padding, KW_RectVerticalAlignment align);
