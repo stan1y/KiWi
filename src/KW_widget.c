@@ -353,7 +353,8 @@ void Reparent(KW_Widget * widget, KW_Widget * newparent) {
     }
     
     /* need to recalculate new parent area */
-    CalculateComposedGeometry(newparent);
+    CalculateComposedGeometry(widget);
+    CalculateAbsoluteGeometry(widget);
   }
 }
 
