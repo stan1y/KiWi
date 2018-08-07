@@ -230,6 +230,24 @@ extern DECLSPEC void KW_Paint(KW_GUI * gui);
  */
 extern DECLSPEC void KW_ProcessEvents(KW_GUI * gui);
 
+/**
+ * \brief   Disable events processing and rendering
+ * \param   gui The KW_GUI instance holding the widget tree.
+ */
+extern DECLSPEC void KW_Disable(KW_GUI * gui);
+
+/**
+ * \brief   Enable events processing and rendering
+ * \param   gui The KW_GUI instance holding the widget tree.
+ */
+extern DECLSPEC void KW_Enable(KW_GUI * gui);
+
+/**
+ * \brief   Returns SDL_TRUE if this instance of gui is disabled
+ * \param   gui The KW_GUI instance holding the widget tree.
+ */
+extern DECLSPEC int KW_IsDisabled(KW_GUI * gui);
+
 #ifdef __cplusplus
 }
 #endif

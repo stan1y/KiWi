@@ -121,6 +121,7 @@ KW_GUI * KW_GetGUI(const KW_Widget * widget) {
 }
 
 void KW_Paint(KW_GUI * gui) {
+  if (gui->disabled) return;
   KW_PaintWidget(gui->rootwidget);
 }
 

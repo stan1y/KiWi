@@ -126,9 +126,20 @@ void KeyDown(KW_GUI * gui, SDL_Keycode key, SDL_Scancode scan) {
 /* to capture mouse movements, clicks, types, etc */
 int KW_EventWatcher(void * data, SDL_Event * event) {
   KW_GUI * gui = (KW_GUI *) data;
-  SDL_LockMutex(gui->evqueuelock);    
+  SDL_LockMutex(gui->evqueuelock);
+
+  if (gui->disabled) {
+    SDL_UnlockMutex(gui->evqueuelock);
+    return 0;
+  }
+
+  if (gui->evqueuesize + 1 == KW_QUEUE_MAX) {
+    SDL_UnlockMutex(gui->evqueuelock);
+    SDL_Log("ERROR: KW_EventWatcher - queue exhausted");
+    return -1;
+  }
   gui->evqueue[(gui->evqueuesize)++] = *event;
-  SDL_UnlockMutex(gui->evqueuelock);  
+  SDL_UnlockMutex(gui->evqueuelock);
   return 0;
 }
 
@@ -169,6 +180,29 @@ void KW_ProcessEvents(KW_GUI * gui) {
   }
   gui->evqueuesize = 0;
   SDL_UnlockMutex(gui->evqueuelock);
+}
+
+void KW_Disable(KW_GUI * gui)
+{
+  SDL_LockMutex(gui->evqueuelock);
+  gui->disabled = SDL_TRUE;
+  SDL_UnlockMutex(gui->evqueuelock);
+}
+
+void KW_Enable(KW_GUI * gui)
+{
+  SDL_LockMutex(gui->evqueuelock);
+  gui->disabled = SDL_FALSE;
+  SDL_UnlockMutex(gui->evqueuelock);
+}
+
+int KW_IsDisabled(KW_GUI * gui)
+{
+  int state = SDL_FALSE;
+  SDL_LockMutex(gui->evqueuelock);
+  state = gui->disabled;
+  SDL_UnlockMutex(gui->evqueuelock);
+  return state;
 }
 
 #undef KW_FireWidgetEvent

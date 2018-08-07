@@ -17,6 +17,7 @@ typedef enum KW_GUIEventHandlerType {
   KW_GUIEVENTHANDLER_TOTAL
 } KW_GUIEventHandlerType;
 
+#define KW_QUEUE_MAX 1024
 struct KW_GUI {
   KW_Texture * tilesettexture;
   KW_Surface * tilesetsurface;
@@ -32,7 +33,8 @@ struct KW_GUI {
   SDL_bool cursordown; /* indicates whether the cursor is clicked or not */
   SDL_bool cursorwasdown;
   
-  SDL_Event evqueue[1024];
+  SDL_bool disabled;
+  SDL_Event evqueue[KW_QUEUE_MAX];
   int evqueuesize;
   SDL_mutex * evqueuelock;
   
