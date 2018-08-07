@@ -13,7 +13,7 @@ void dump(const char infile[], FILE * hfile, FILE * cfile);
 int make_identifier(const char string[], char output[], size_t output_size);
 
 int main(int argc, char * argv[]) {
-  unsigned i = 0;
+  int i = 0;
   FILE * cfile, * hfile;
   if (argc < 4) return EXIT_FAILURE;
   hfile = fopen(argv[1], "w+");
